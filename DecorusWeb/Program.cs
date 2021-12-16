@@ -1,8 +1,14 @@
+using DecorusWeb.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+// Service for using DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 // No longer required for hot reload
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
