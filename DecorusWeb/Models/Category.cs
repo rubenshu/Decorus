@@ -8,7 +8,7 @@ namespace DecorusWeb.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public int DIsplayOrder { get; set; }
+        public int DisplayOrder { get; set; }
         public DateTime CreatedDayTime { get; set; } = DateTime.Now;
     }
 }
