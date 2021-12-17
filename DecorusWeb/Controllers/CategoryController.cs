@@ -34,7 +34,7 @@ namespace DecorusWeb.Controllers
             {
                 ModelState.AddModelError("Name", "DisplayOrder !== Name");
             }
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
@@ -46,7 +46,7 @@ namespace DecorusWeb.Controllers
         //GET
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
@@ -80,7 +80,7 @@ namespace DecorusWeb.Controllers
             return View(obj);
         }
 
-        //DELETE
+        //GET
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -94,7 +94,21 @@ namespace DecorusWeb.Controllers
                 return NotFound();
             }
 
-            _db.Categories.Remove(categoryFromDb);
+            return View(categoryFromDb);
+        }
+
+        //POST
+        [HttpPost,ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+            var obj = _db.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            _db.Categories.Remove(obj);
             _db.SaveChanges();
 
             return RedirectToAction("Index");
