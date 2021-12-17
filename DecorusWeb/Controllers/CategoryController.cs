@@ -38,7 +38,7 @@ namespace DecorusWeb.Controllers
             {
                 _db.Categories.Add(obj);
                 _db.SaveChanges();
-                TempData["succes"] = "Category created succesfully";
+                TempData["success"] = "Category created succesfully";
                 return RedirectToAction("Index", "Category");
             }
             return View(obj);
@@ -76,7 +76,7 @@ namespace DecorusWeb.Controllers
             {
                 _db.Categories.Update(obj);
                 _db.SaveChanges();
-                TempData["succes"] = "Category edit succesfully";
+                TempData["success"] = "Category edit succesfully";
                 return RedirectToAction("Index", "Category");
             }
             return View(obj);
@@ -112,7 +112,7 @@ namespace DecorusWeb.Controllers
 
             _db.Categories.Remove(obj);
             _db.SaveChanges();
-            TempData["succes"] = "Category deleted succesfully";
+            TempData["success"] = "Category deleted succesfully";
             return RedirectToAction("Index");
         }
     }
