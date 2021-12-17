@@ -1,4 +1,4 @@
-namespace DecorusWeb.Models
+namespace Decorus.Models
 {
     public class ErrorViewModel
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace DecorusWeb.Models
+namespace Decorus.Models
 {
     public class Category
     {

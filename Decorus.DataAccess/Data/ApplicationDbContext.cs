@@ -1,7 +1,7 @@
-﻿using DecorusWeb.Models;
+﻿using Decorus.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DecorusWeb.Data
+namespace Decorus.DataAccess
 {
     public class ApplicationDbContext :DbContext
     {
