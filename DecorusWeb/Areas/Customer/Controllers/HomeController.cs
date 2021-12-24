@@ -1,5 +1,6 @@
 ﻿using Decorus.DataAccess.Repository.IRepository;
 using Decorus.Models;
+using Decorus.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -22,11 +23,16 @@ public class HomeController : Controller
         return View(productList);
     }
 
-    public IActionResult Details(int id)
+    public IActionResult Details(int productId)
     {
-        Product product = _unitOfWork.Product.GetFirstOrDefault(u=>u.Id == id, includeProperties: "Category,CoverType");
+        ShoppingCart cartObj = new()
+        {
+            Count = 1,
+            //ProductId = productId,
+            Product = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == productId, includeProperties: "Category,CoverType"),
+        };
 
-        return View(productList);
+        return View(cartObj);
     }
 
     public IActionResult Privacy()
