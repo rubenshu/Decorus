@@ -90,7 +90,7 @@ public class ProductController : Controller
                 var uploads = Path.Combine(wwwRoot, @"images\products");
                 var extension = Path.GetExtension(file.FileName);
 
-                using(var fileStreams = new FileStream(Path.Combine(uploads,fileName+extension), FileMode.Create))
+                using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
                 {
                     file.CopyTo(fileStreams);
                 }
@@ -137,4 +137,13 @@ public class ProductController : Controller
         TempData["success"] = "CoverType deleted succesfully";
         return RedirectToAction("Index");
     }
+
+    #region API CALLS
+    [HttpGet]
+    public IActionResult GetAll()
+    {
+        var productList = _unitOfWork.Product.GetAll();
+        return Json(new { data = productList });
+    }
+    #endregion
 }
