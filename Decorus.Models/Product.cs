@@ -45,7 +45,6 @@ namespace Decorus.Models
         // Will automatically make CoverTypeId a foreign key
         [Required]
         public int CoverTypeId { get; set; }
-        [ForeignKey("CoverType")]
         public CoverType CoverType { get; set; }
 
     }
