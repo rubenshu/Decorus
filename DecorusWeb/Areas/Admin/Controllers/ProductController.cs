@@ -42,7 +42,10 @@ public class ProductController : Controller
         if (id == null || id == 0)
         {
             // Create product. Product does not exist.
+            // ViewBag Data returning to front-end View
             ViewBag.CategoryList = CategoryList;
+            // ViewData returning to front-end View
+            ViewData["CoverTypeList"] = CoverTypeList;
             return View(product);
         }
         else
