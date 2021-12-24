@@ -20,8 +20,7 @@ public class ProductController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<CoverType> objCoverTypeList = _unitOfWork.CoverType.GetAll();
-        return View(objCoverTypeList);
+        return View();
     }
 
     //GET
@@ -43,6 +42,7 @@ public class ProductController : Controller
             })
         };
         // OLD VERSION
+        /*
         Product product = new();
         IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
             u => new SelectListItem
@@ -57,7 +57,7 @@ public class ProductController : Controller
                 Text = u.Name,
                 Value = u.Id.ToString()
             }
-        );
+        );*/
         if (id == null || id == 0)
         {
             // OLD VERSION
@@ -73,7 +73,7 @@ public class ProductController : Controller
             // Update product. Product exists.
         }
 
-        return View(product);
+        return View();
     }
 
     //POST
@@ -96,10 +96,10 @@ public class ProductController : Controller
                 }
                 obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
             }
-            // _unitOfWork.CoverType.Update(obj);
+            _unitOfWork.Product.Add(obj.Product);
             _unitOfWork.Save();
-            TempData["success"] = "CoverType edit succesfully";
-            return RedirectToAction("Index", "CoverType");
+            TempData["success"] = "Product created succesfully";
+            return RedirectToAction("Index", "Product");
         }
         return View(obj);
     }

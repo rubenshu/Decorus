@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,7 @@ namespace Decorus.Models
         [Range(1, 10000)]
         public double Price100 { get; set; }
 
+        [ValidateNever]
         public string ImageUrl { get; set; }
 
         // Will automatically make CategoryId a foreign key
@@ -43,11 +45,13 @@ namespace Decorus.Models
         // Can explicitly use ForeignKey tag, but not needed. Only if the name is different, it will not automatically map.
         // When Id is appended 
         [ForeignKey("CategoryId")]
+        [ValidateNever]
         public Category Category { get; set; }
 
         // Will automatically make CoverTypeId a foreign key
         [Required]
         public int CoverTypeId { get; set; }
+        [ValidateNever]
         public CoverType CoverType { get; set; }
 
     }
