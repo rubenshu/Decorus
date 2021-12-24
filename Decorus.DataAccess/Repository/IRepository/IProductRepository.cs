@@ -9,6 +9,6 @@ namespace Decorus.DataAccess.Repository.IRepository
 {
     public interface IProductRepository : IRepository<Product>
     {
-        void Update(CoverType obj);
+        void Update(Product obj);
     }
 }

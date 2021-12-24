@@ -17,9 +17,16 @@ namespace Decorus.DataAccess.Repository
             _db = db;
         }
 
-        public void Update(CoverType obj)
+        public void Update(Product obj)
         {
-            _db.CoverTypes.Update(obj);
+            // Restrict the update so the whole object doesn't get updated. 
+            /*
+            var objFromDb = _db.Products.FirstOrDefault(u => u.Id == obj.Id);
+            if (objFromDb != null)
+            {
+                objFromDb.Title = obj.Title;
+            }
+            */
         }
     }
 }
