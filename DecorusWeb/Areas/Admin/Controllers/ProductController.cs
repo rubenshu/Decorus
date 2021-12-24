@@ -2,6 +2,7 @@
 using Decorus.DataAccess.Repository.IRepository;
 using Decorus.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DecorusWeb.Controllers;
 [Area("Admin")]
@@ -21,51 +22,33 @@ public class ProductController : Controller
     }
 
     //GET
-    public IActionResult Create()
+    public IActionResult Upsert(int? id)
     {
-        return View();
-    }
-
-    //POST
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Create(CoverType obj)
-    {
-        if (obj.Name == obj.Id.ToString())
-        {
-            ModelState.AddModelError("Name", "Id !== Name");
-        }
-        if (ModelState.IsValid)
-        {
-            _unitOfWork.CoverType.Add(obj);
-            _unitOfWork.Save();
-            TempData["success"] = "CoverType created succesfully";
-            return RedirectToAction("Index", "CoverType");
-        }
-        return View(obj);
-    }
-
-    //GET
-    public IActionResult Edit(int? id)
-    {
+        Product product = new();
+        IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+            u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            }
+        );
         if (id == null || id == 0)
         {
-            return NotFound();
+            // Create product. Product does not exist.
+            return View(product);
         }
-        var CoverTypeFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
-
-        if (CoverTypeFromDb == null)
+        else
         {
-            return NotFound();
+            // Update product. Product exists.
         }
 
-        return View(CoverTypeFromDb);
+        return View(product);
     }
 
     //POST
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(CoverType obj)
+    public IActionResult Upsert(CoverType obj)
     {
         if (obj.Name == obj.Id.ToString())
         {
