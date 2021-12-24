@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace DecorusWeb.Controllers
-{
+namespace DecorusWeb.Controllers;
+[Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -3,8 +3,8 @@ using Decorus.DataAccess.Repository.IRepository;
 using Decorus.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DecorusWeb.Controllers
-{
+namespace DecorusWeb.Controllers;
+[Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
