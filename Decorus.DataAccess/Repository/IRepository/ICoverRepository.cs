@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Decorus.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Decorus.DataAccess.Repository.IRepository
 {
-    public interface IUnitOfWork
+    public interface ICoverRepository : IRepository<Cover>
     {
-        ICategoryRepository Category { get; }
-        ICoverRepository Cover { get; }
-
-        void Save();
+        void Update(Cover obj);
     }
 }
