@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Decorus.DataAccess.Repository
 {
-    public class CoverRepository : Repository<Cover>, ICoverRepository
+    public class CoverTypeRepository : Repository<CoverType>, ICoverTypeRepository
     {
         private ApplicationDbContext _db;
 
-        public CoverRepository(ApplicationDbContext db) : base(db)
+        public CoverTypeRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
         }
 
-        public void Update(Cover obj)
+        public void Update(CoverType obj)
         {
-            _db.Covers.Update(obj);
+            _db.CoverTypes.Update(obj);
         }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DecorusWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211224083837_AddCoverToDatabase")]
-    partial class AddCoverToDatabase
+    [Migration("20211224084553_AddCoverTypeToDatabase")]
+    partial class AddCoverTypeToDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace DecorusWeb.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Decorus.Models.Cover", b =>
+            modelBuilder.Entity("Decorus.Models.CoverType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,8 @@ namespace DecorusWeb.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

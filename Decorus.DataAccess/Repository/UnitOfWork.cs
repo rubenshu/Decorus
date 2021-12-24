@@ -15,11 +15,11 @@ namespace Decorus.DataAccess.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
-            Cover = new CoverRepository(_db);
+            CoverType = new CoverTypeRepository(_db);
         }
 
         public ICategoryRepository Category { get; private set; }
-        public ICoverRepository Cover { get; private set; }
+        public ICoverTypeRepository CoverType { get; private set; }
 
         public void Save()
         {

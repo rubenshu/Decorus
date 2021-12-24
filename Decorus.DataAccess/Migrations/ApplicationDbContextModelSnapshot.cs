@@ -45,7 +45,7 @@ namespace DecorusWeb.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Decorus.Models.Cover", b =>
+            modelBuilder.Entity("Decorus.Models.CoverType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,8 @@ namespace DecorusWeb.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

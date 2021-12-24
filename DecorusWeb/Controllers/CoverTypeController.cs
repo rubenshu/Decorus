@@ -5,19 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DecorusWeb.Controllers
 {
-    public class CoverController : Controller
+    public class CoverTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public CoverController(IUnitOfWork unitOfWork)
+        public CoverTypeController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Cover> objCoverList = _unitOfWork.Cover.GetAll();
-            return View(objCoverList);
+            IEnumerable<CoverType> objCoverTypeList = _unitOfWork.CoverType.GetAll();
+            return View(objCoverTypeList);
         }
 
         //GET
@@ -29,7 +29,7 @@ namespace DecorusWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Cover obj)
+        public IActionResult Create(CoverType obj)
         {
             if (obj.Name == obj.Id.ToString())
             {
@@ -37,10 +37,10 @@ namespace DecorusWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _unitOfWork.Cover.Add(obj);
+                _unitOfWork.CoverType.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Cover created succesfully";
-                return RedirectToAction("Index", "Cover");
+                return RedirectToAction("Index", "CoverType");
             }
             return View(obj);
         }
@@ -53,7 +53,7 @@ namespace DecorusWeb.Controllers
                 return NotFound();
             }
             //var CoverFromDb = _db.Categories.Find(id);
-            var CoverFromDb = _unitOfWork.Cover.GetFirstOrDefault(u => u.Id == id);
+            var CoverFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
             //var CoverFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
 
             if (CoverFromDb == null)
@@ -67,7 +67,7 @@ namespace DecorusWeb.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Cover obj)
+        public IActionResult Edit(CoverType obj)
         {
             if (obj.Name == obj.Id.ToString())
             {
@@ -75,10 +75,10 @@ namespace DecorusWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _unitOfWork.Cover.Update(obj);
+                _unitOfWork.CoverType.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Cover edit succesfully";
-                return RedirectToAction("Index", "Cover");
+                return RedirectToAction("Index", "CoverType");
             }
             return View(obj);
         }
@@ -90,7 +90,7 @@ namespace DecorusWeb.Controllers
             {
                 return NotFound();
             }
-            var CoverFromDb = _unitOfWork.Cover.GetFirstOrDefault(u => u.Id == id);
+            var CoverFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
 
             if (CoverFromDb == null)
             {
@@ -105,13 +105,13 @@ namespace DecorusWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = _unitOfWork.Cover.GetFirstOrDefault(u => u.Id == id);
+            var obj = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _unitOfWork.Cover.Remove(obj);
+            _unitOfWork.CoverType.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Cover deleted succesfully";
             return RedirectToAction("Index");

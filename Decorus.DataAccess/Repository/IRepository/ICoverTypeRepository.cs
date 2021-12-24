@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Decorus.DataAccess.Repository.IRepository
 {
-    public interface ICoverRepository : IRepository<Cover>
+    public interface ICoverTypeRepository : IRepository<CoverType>
     {
-        void Update(Cover obj);
+        void Update(CoverType obj);
     }
 }

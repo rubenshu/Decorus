@@ -4,17 +4,22 @@
 
 namespace DecorusWeb.Migrations
 {
-    public partial class AddCoverToDatabase : Migration
+    public partial class AddCoverTypeToDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "DIsplayOrder",
+                table: "Categories",
+                newName: "DisplayOrder");
+
             migrationBuilder.CreateTable(
-                name: "Covers",
+                name: "CoverType",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,7 +30,12 @@ namespace DecorusWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Covers");
+                name: "CoverType");
+
+            migrationBuilder.RenameColumn(
+                name: "DisplayOrder",
+                table: "Categories",
+                newName: "DIsplayOrder");
         }
     }
 }

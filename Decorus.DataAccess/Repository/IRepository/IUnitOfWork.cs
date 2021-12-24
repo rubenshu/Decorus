@@ -9,7 +9,7 @@ namespace Decorus.DataAccess.Repository.IRepository
     public interface IUnitOfWork
     {
         ICategoryRepository Category { get; }
-        ICoverRepository Cover { get; }
+        ICoverTypeRepository CoverType { get; }
 
         void Save();
     }
