@@ -33,13 +33,13 @@ public class CoverTypeController : Controller
     {
         if (obj.Name == obj.Id.ToString())
         {
-            ModelState.AddModelError("Name", "DisplayOrder !== Name");
+            ModelState.AddModelError("Name", "Id !== Name");
         }
         if (ModelState.IsValid)
         {
             _unitOfWork.CoverType.Add(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Cover created succesfully";
+            TempData["success"] = "CoverType created succesfully";
             return RedirectToAction("Index", "CoverType");
         }
         return View(obj);
@@ -52,16 +52,14 @@ public class CoverTypeController : Controller
         {
             return NotFound();
         }
-        //var CoverFromDb = _db.Categories.Find(id);
-        var CoverFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
-        //var CoverFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+        var CoverTypeFromDb = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
 
-        if (CoverFromDb == null)
+        if (CoverTypeFromDb == null)
         {
             return NotFound();
         }
 
-        return View(CoverFromDb);
+        return View(CoverTypeFromDb);
     }
 
     //POST
@@ -71,13 +69,13 @@ public class CoverTypeController : Controller
     {
         if (obj.Name == obj.Id.ToString())
         {
-            ModelState.AddModelError("Name", "DisplayOrder !== Name");
+            ModelState.AddModelError("Name", "Id !== Name");
         }
         if (ModelState.IsValid)
         {
             _unitOfWork.CoverType.Update(obj);
             _unitOfWork.Save();
-            TempData["success"] = "Cover edit succesfully";
+            TempData["success"] = "CoverType edit succesfully";
             return RedirectToAction("Index", "CoverType");
         }
         return View(obj);
@@ -113,7 +111,7 @@ public class CoverTypeController : Controller
 
         _unitOfWork.CoverType.Remove(obj);
         _unitOfWork.Save();
-        TempData["success"] = "Cover deleted succesfully";
+        TempData["success"] = "CoverType deleted succesfully";
         return RedirectToAction("Index");
     }
 }
