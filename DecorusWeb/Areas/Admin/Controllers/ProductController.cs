@@ -32,6 +32,13 @@ public class ProductController : Controller
                 Value = u.Id.ToString()
             }
         );
+        IEnumerable<SelectListItem> CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
+            u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            }
+        );
         if (id == null || id == 0)
         {
             // Create product. Product does not exist.
