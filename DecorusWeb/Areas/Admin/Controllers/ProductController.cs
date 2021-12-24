@@ -77,15 +77,11 @@ public class ProductController : Controller
     //POST
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Upsert(CoverType obj)
+    public IActionResult Upsert(ProductVM obj, IFormFile file)
     {
-        if (obj.Name == obj.Id.ToString())
-        {
-            ModelState.AddModelError("Name", "Id !== Name");
-        }
         if (ModelState.IsValid)
         {
-            _unitOfWork.CoverType.Update(obj);
+            // _unitOfWork.CoverType.Update(obj);
             _unitOfWork.Save();
             TempData["success"] = "CoverType edit succesfully";
             return RedirectToAction("Index", "CoverType");
