@@ -1,6 +1,7 @@
 ﻿using Decorus.DataAccess;
 using Decorus.DataAccess.Repository.IRepository;
 using Decorus.Models;
+using Decorus.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -24,6 +25,22 @@ public class ProductController : Controller
     //GET
     public IActionResult Upsert(int? id)
     {
+        // NEW VERSION
+        ProductVM productVM = new()
+        {
+            Product = new(),
+            CategoryList = _unitOfWork.Category.GetAll().Select(i=>new SelectListItem
+            {
+                Text=i.Name,
+                Value = i.Id.ToString(),
+            }),
+            CoverTypeList = _unitOfWork.CoverType.GetAll().Select(i => new SelectListItem
+            {
+                Text = i.Name,
+                Value = i.Id.ToString(),
+            })
+        };
+        // OLD VERSION
         Product product = new();
         IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
             u => new SelectListItem
@@ -41,12 +58,13 @@ public class ProductController : Controller
         );
         if (id == null || id == 0)
         {
+            // OLD VERSION
             // Create product. Product does not exist.
             // ViewBag Data returning to front-end View
-            ViewBag.CategoryList = CategoryList;
+            //ViewBag.CategoryList = CategoryList;
             // ViewData returning to front-end View
-            ViewData["CoverTypeList"] = CoverTypeList;
-            return View(product);
+            // ViewData["CoverTypeList"] = CoverTypeList;
+            return View(productVM);
         }
         else
         {
