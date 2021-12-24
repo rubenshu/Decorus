@@ -10,10 +10,12 @@ namespace DecorusWeb.Controllers;
 public class ProductController : Controller
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IWebHostEnvironment _hostEnvironment;
 
-    public ProductController(IUnitOfWork unitOfWork)
+    public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
     {
         _unitOfWork = unitOfWork;
+        _hostEnvironment = hostEnvironment;
     }
 
     public IActionResult Index()
@@ -29,9 +31,9 @@ public class ProductController : Controller
         ProductVM productVM = new()
         {
             Product = new(),
-            CategoryList = _unitOfWork.Category.GetAll().Select(i=>new SelectListItem
+            CategoryList = _unitOfWork.Category.GetAll().Select(i => new SelectListItem
             {
-                Text=i.Name,
+                Text = i.Name,
                 Value = i.Id.ToString(),
             }),
             CoverTypeList = _unitOfWork.CoverType.GetAll().Select(i => new SelectListItem
@@ -77,10 +79,23 @@ public class ProductController : Controller
     //POST
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Upsert(ProductVM obj, IFormFile file)
+    public IActionResult Upsert(ProductVM obj, IFormFile? file)
     {
         if (ModelState.IsValid)
         {
+            string wwwRoot = _hostEnvironment.WebRootPath;
+            if (file != null)
+            {
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(wwwRoot, @"images\products");
+                var extension = Path.GetExtension(file.FileName);
+
+                using(var fileStreams = new FileStream(Path.Combine(uploads,fileName+extension), FileMode.Create))
+                {
+                    file.CopyTo(fileStreams);
+                }
+                obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
+            }
             // _unitOfWork.CoverType.Update(obj);
             _unitOfWork.Save();
             TempData["success"] = "CoverType edit succesfully";
