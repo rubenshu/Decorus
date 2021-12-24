@@ -22,17 +22,20 @@ namespace Decorus.Models
         [Required]
         public string Author { get; set; }
         [Required]
+        [Display(Name = "List Price")]
+        [Range(1, 10000)]
+        public double ListPrice { get; set; }
+        [Required]
+        [Display(Name = "Price for 1-50")]
         [Range(1, 10000)]
         public double Price { get; set; }
         [Required]
-        [Range(1, 10000)]
-        public double ListPrice { get; set; }
-
-        [Required]
+        [Display(Name = "Price for 51-100")]
         [Range(1, 10000)]
         public double Price50 { get; set; }
 
         [Required]
+        [Display(Name = "Price for 100+")]
         [Range(1, 10000)]
         public double Price100 { get; set; }
 
@@ -41,6 +44,7 @@ namespace Decorus.Models
 
         // Will automatically make CategoryId a foreign key
         [Required]
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
         // Can explicitly use ForeignKey tag, but not needed. Only if the name is different, it will not automatically map.
         // When Id is appended 
@@ -50,6 +54,7 @@ namespace Decorus.Models
 
         // Will automatically make CoverTypeId a foreign key
         [Required]
+        [Display(Name = "Cover Type")]
         public int CoverTypeId { get; set; }
         [ValidateNever]
         public CoverType CoverType { get; set; }
